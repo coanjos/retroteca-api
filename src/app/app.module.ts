@@ -1,9 +1,15 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+
+const configService = new ConfigService();
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://127.0.0.1:27017/retroteca')
+    ConfigModule.forRoot({
+      isGlobal: true
+    }),
+    MongooseModule.forRoot(configService.get('DB_CONNECTION_STRING'))
   ],
   controllers: [],
   providers: []
