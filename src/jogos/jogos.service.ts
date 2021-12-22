@@ -1,11 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { CreateJogoDto } from './dto/create-jogo.dto';
 import { UpdateJogoDto } from './dto/update-jogo.dto';
+import { JogosRepository } from './jogos.repository';
 
 @Injectable()
 export class JogosService {
+  constructor(private jogosRepository: JogosRepository) {}
+
   create(createJogoDto: CreateJogoDto) {
-    return 'This action adds a new jogo';
+    return this.jogosRepository.create();
   }
 
   findAll() {
