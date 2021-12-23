@@ -8,7 +8,7 @@ export class JogosService {
   constructor(private jogosRepository: JogosRepository) {}
 
   create(createJogoDto: CreateJogoDto) {
-    return this.jogosRepository.create();
+    return this.jogosRepository.create(createJogoDto);
   }
 
   findAll() {
