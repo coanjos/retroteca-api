@@ -13,4 +13,10 @@ export class JogosRepository {
 
         return await jogoCriado.save();
     }
+
+    async findAll() {
+        const jogos = this.jogoModel.find()
+
+        return await jogos;
+    }
 }

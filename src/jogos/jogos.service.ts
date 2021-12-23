@@ -12,7 +12,7 @@ export class JogosService {
   }
 
   findAll() {
-    return `This action returns all jogos`;
+    return this.jogosRepository.findAll()
   }
 
   findOne(id: number) {
