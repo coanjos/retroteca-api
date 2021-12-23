@@ -13,4 +13,16 @@ export class JogosRepository {
 
         return await jogoCriado.save();
     }
+
+    async findAll() {
+        const jogos = await this.jogoModel.find();
+
+        return jogos;
+    }
+
+    async findOne(id: string) {
+        const jogo = await this.jogoModel.findById(id);
+
+        return jogo;
+    }
 }
