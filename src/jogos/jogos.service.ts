@@ -15,8 +15,8 @@ export class JogosService {
     return this.jogosRepository.findAll()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} jogo`;
+  findOne(id: string) {
+    return this.jogosRepository.findOne(id)
   }
 
   update(id: number, updateJogoDto: UpdateJogoDto) {

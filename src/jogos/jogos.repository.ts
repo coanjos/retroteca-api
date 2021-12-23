@@ -15,8 +15,14 @@ export class JogosRepository {
     }
 
     async findAll() {
-        const jogos = this.jogoModel.find()
+        const jogos = await this.jogoModel.find();
 
-        return await jogos;
+        return jogos;
+    }
+
+    async findOne(id: string) {
+        const jogo = await this.jogoModel.findById(id);
+
+        return jogo;
     }
 }

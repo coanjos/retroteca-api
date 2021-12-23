@@ -21,7 +21,7 @@ export class JogosController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.jogosService.findOne(+id);
+    return this.jogosService.findOne(id);
   }
 
   @Patch(':id')
