@@ -1,1 +1,3 @@
-export class CreateJogoDto {}
+export class CreateJogoDto {
+    titulo: string;
+}
