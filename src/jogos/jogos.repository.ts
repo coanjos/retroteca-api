@@ -1,8 +1,9 @@
 import { Model } from 'mongoose';
-import { Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Jogo, JogoDocument } from './schemas/jogo.schema';
 import { CreateJogoDto } from './dto/create-jogo.dto';
+import { UpdateJogoDto } from './dto/update-jogo.dto';
 
 @Injectable()
 export class JogosRepository {
@@ -24,5 +25,15 @@ export class JogosRepository {
         const jogo = await this.jogoModel.findById(id);
 
         return jogo;
+    }
+
+    async patch(id: string, updateJogoDto: UpdateJogoDto) {
+        const jogoExiste = await this.jogoModel.findOne({ _id: id });
+
+        if (!jogoExiste) {
+            throw new NotFoundException('Não encontrado');
+        }
+
+        return await this.jogoModel.findOneAndUpdate({ _id: id }, updateJogoDto);
     }
 }
