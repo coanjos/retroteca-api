@@ -19,8 +19,8 @@ export class JogosService {
     return this.jogosRepository.findOne(id)
   }
 
-  update(id: number, updateJogoDto: UpdateJogoDto) {
-    return `This action updates a #${id} jogo`;
+  update(id: string, updateJogoDto: UpdateJogoDto) {
+    return this.jogosRepository.patch(id, updateJogoDto)
   }
 
   remove(id: number) {

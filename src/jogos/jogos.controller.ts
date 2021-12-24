@@ -26,7 +26,7 @@ export class JogosController {
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateJogoDto: UpdateJogoDto) {
-    return this.jogosService.update(+id, updateJogoDto);
+    return this.jogosService.update(id, updateJogoDto);
   }
 
   @Delete(':id')
