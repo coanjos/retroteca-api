@@ -31,6 +31,6 @@ export class JogosController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.jogosService.remove(+id);
+    return this.jogosService.remove(id);
   }
 }

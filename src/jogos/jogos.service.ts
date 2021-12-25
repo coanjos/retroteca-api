@@ -23,7 +23,7 @@ export class JogosService {
     return this.jogosRepository.patch(id, updateJogoDto)
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} jogo`;
+  remove(id: string) {
+    return this.jogosRepository.delete(id);
   }
 }

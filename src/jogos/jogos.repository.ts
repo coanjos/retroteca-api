@@ -1,5 +1,5 @@
 import { Model } from 'mongoose';
-import { HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Jogo, JogoDocument } from './schemas/jogo.schema';
 import { CreateJogoDto } from './dto/create-jogo.dto';
@@ -22,7 +22,11 @@ export class JogosRepository {
     }
 
     async findOne(id: string) {
-        const jogo = await this.jogoModel.findById(id);
+        const jogo = await this.jogoModel.findOne({ _id: id });
+
+        if (!jogo) {
+            throw new NotFoundException('Não encontrado.');
+        }
 
         return jogo;
     }
@@ -35,5 +39,15 @@ export class JogosRepository {
         }
 
         return await this.jogoModel.findOneAndUpdate({ _id: id }, updateJogoDto);
+    }
+
+    async delete(id: string) {
+        const jogoExiste = await this.jogoModel.findOne({ _id: id });
+
+        if(!jogoExiste) {
+            throw new NotFoundException('Não encontrado');
+        }
+
+        return await this.jogoModel.deleteOne({ _id: id })
     }
 }
