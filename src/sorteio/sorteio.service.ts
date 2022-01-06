@@ -13,6 +13,14 @@ export class SorteioService {
     private readonly jogosRepository: JogosRepository
   ) {}
 
+  async getHistorico() {
+    const jogos = await this.sorteioRepository.findAll();
+
+    const historico = jogos.sort((x, y) => x.sorteadoEm.getTime() - y.sorteadoEm.getTime())
+
+    return historico;
+  }
+
   async sortear() {
     const sorteadoAtivo = await this.verificaSorteioAtivo();
 
@@ -42,7 +50,7 @@ export class SorteioService {
 
     let daysBetweenDates: number = Math.floor(timeInMilisec / (1000 * 60 * 60 * 24));
 
-    return daysBetweenDates >= 3;   
+    return daysBetweenDates >= 2;   
   }
 
   async verificaSorteioAtivo(): Promise<SorteioDocument> {
