@@ -13,4 +13,6 @@ export class CreateJogoDto {
     generos: string[];
     @ApiProperty()
     capas: string[];
+    @ApiProperty()
+    foiSorteado: boolean;
 }

@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import * as mongoose from 'mongoose';
 import { Jogo } from 'src/jogos/schemas/jogo.schema';
+import { Document } from 'mongoose';
 
 export type SorteioDocument = Sorteio & Document;
 
@@ -10,7 +11,7 @@ export class Sorteio {
   sorteadoEm: Date;
   @Prop()
   ativo: boolean;
-  @Prop()
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Jogo' })
   jogo: Jogo;
 }
 
