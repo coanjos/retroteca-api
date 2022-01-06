@@ -17,6 +17,8 @@ export class Jogo {
   generos: string[];
   @Prop()
   capas: string[];
+  @Prop()
+  foiSorteado: boolean;
 }
 
 export const JogoSchema = SchemaFactory.createForClass(Jogo);

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateSorteioDto } from './dto/create-sorteio.dto';
@@ -9,23 +9,25 @@ import { Sorteio, SorteioDocument } from './schemas/sorteio.schema';
 export class SorteioRepository {
   constructor(@InjectModel(Sorteio.name) private sorteioModel: Model<SorteioDocument>) {}
 
-  create(createSorteioDto: CreateSorteioDto) {
-    return 'This action adds a new sorteio';
+  async sortear(createSorteioDto: CreateSorteioDto) {
+    const sorteioCriado = new this.sorteioModel(createSorteioDto);
+
+      return await sorteioCriado.save();
   }
 
-  findAll() {
-    return `This action returns all sorteio`;
+  async findAll() {
+    const sorteios = await this.sorteioModel.find().populate('jogo');
+
+    return sorteios;
   }
 
-  findOne(id: string) {
-    return id;
-  }
+  async patch(id: string, updateSorteioDto: UpdateSorteioDto) {
+    const sorteioExiste = await this.sorteioModel.findOne({ _id: id });
 
-  update(id: string, updateSorteioDto: UpdateSorteioDto) {
-    return id;
-  }
+    if (!sorteioExiste) {
+        throw new NotFoundException('Não encontrado');
+    }
 
-  remove(id: string) {
-    return id;
+    return await this.sorteioModel.findOneAndUpdate({ _id: id }, updateSorteioDto);
   }
 }
