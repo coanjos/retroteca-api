@@ -5,6 +5,17 @@ export type JogoDocument = Jogo & Document;
 
 @Schema()
 export class Jogo {
+
+  constructor(jogo?: Partial<JogoDocument>) {
+    this.titulo = jogo?._id;
+    this.descricao = jogo?.descricao;
+    this.ano = jogo?.ano;
+    this.autores = jogo?.autores;
+    this.capas = jogo?.capas;
+    this.generos = jogo?.generos;
+    this.foiSorteado = jogo?.foiSorteado;
+  }
+
   @Prop()
   titulo: string;
   @Prop()
