@@ -57,10 +57,10 @@ describe('JogosController', () => {
     expect(jogosService.findAll).toHaveBeenCalledTimes(1);
   });
 
-  it('deve lançar exceção', () => {
+  it('deve lançar exceção ao buscar lista', () => {
     jest.spyOn(jogosService, 'findAll').mockRejectedValueOnce(new Error());
 
-    expect(jogosController.findAll()).rejects.toThrowError();
+    expect(jogosController.findAll).rejects.toThrowError();
   })
 
   it('deve criar um jogo', async () => {
@@ -119,5 +119,5 @@ describe('JogosController', () => {
     expect(result).toEqual(jogoDocumentList[0]);
     expect(jogosService.remove).toHaveBeenCalledTimes(1);
     expect(jogosService.remove).toHaveBeenCalledWith(id);
-  })
+  });
 });
