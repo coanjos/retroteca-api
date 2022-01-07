@@ -60,8 +60,8 @@ describe('JogosController', () => {
   it('deve lançar exceção ao buscar lista', () => {
     jest.spyOn(jogosService, 'findAll').mockRejectedValueOnce(new Error());
 
-    expect(jogosController.findAll).rejects.toThrowError();
-  })
+    expect(jogosService.findAll).rejects.toThrowError();
+  });
 
   it('deve criar um jogo', async () => {
     const body: CreateJogoDto = {
