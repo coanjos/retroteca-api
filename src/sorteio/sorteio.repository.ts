@@ -12,7 +12,7 @@ export class SorteioRepository {
   async sortear(createSorteioDto: CreateSorteioDto) {
     const sorteioCriado = new this.sorteioModel(createSorteioDto);
 
-      return await sorteioCriado.save();
+    return await sorteioCriado.save();
   }
 
   async findAll() {

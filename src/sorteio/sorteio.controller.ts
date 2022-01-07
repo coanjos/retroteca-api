@@ -19,4 +19,8 @@ export class SorteioController {
     return this.sorteioService.findAll();
   }
 
+  @Get('/historico') 
+  getHistorico() {
+    return this.sorteioService.getHistorico()
+  }
 }
