@@ -15,4 +15,6 @@ export class CreateJogoDto {
     capas: string[];
     @ApiProperty()
     foiSorteado: boolean;
+    @ApiProperty()
+    plataformas: string[];
 }
