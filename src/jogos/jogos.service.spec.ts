@@ -20,7 +20,8 @@ const newJogoDocument = new Jogo(
     generos: ['Plataforma'],
     capas: ['ABC'],
     descricao: 'Mario goes puin',
-    foiSorteado: true
+    foiSorteado: true,
+    plataformas: ['nes']
 });
 
 describe('JogosService', () => {
@@ -79,7 +80,8 @@ describe('JogosService', () => {
       generos: ['Plataforma'],
       capas: ['ABC'],
       descricao: 'Mario goes puin',
-      foiSorteado: true
+      foiSorteado: true,
+      plataformas: ['nes']
     };
 
     const result = await jogosService.create(body);
