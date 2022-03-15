@@ -14,6 +14,7 @@ export class Jogo {
     this.capas = jogo?.capas;
     this.generos = jogo?.generos;
     this.foiSorteado = jogo?.foiSorteado;
+    this.plataformas = jogo?.plataformas;
   }
 
   @Prop()
@@ -30,6 +31,8 @@ export class Jogo {
   capas: string[];
   @Prop()
   foiSorteado: boolean;
+  @Prop()
+  plataformas: string[];
 }
 
 export const JogoSchema = SchemaFactory.createForClass(Jogo);

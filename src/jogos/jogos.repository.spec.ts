@@ -77,7 +77,8 @@ describe('JogosService', () => {
       generos: ['Plataforma'],
       capas: ['ABC'],
       descricao: 'Mario goes puin',
-      foiSorteado: true
+      foiSorteado: true,
+      plataformas: ['nes']
     };
 
     const result = await jogosRepository.create(body);
@@ -96,7 +97,8 @@ describe('JogosService', () => {
       generos: ['Plataforma'],
       capas: ['ABC'],
       descricao: 'Mario goes puin',
-      foiSorteado: true
+      foiSorteado: true,
+      plataformas: ['nes']
     };
 
     const result = await jogosRepository.patch(id, body);

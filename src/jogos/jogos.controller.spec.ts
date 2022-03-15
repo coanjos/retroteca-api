@@ -71,7 +71,8 @@ describe('JogosController', () => {
       generos: ['Plataforma'],
       capas: ['ABC'],
       descricao: 'Mario goes puin',
-      foiSorteado: true
+      foiSorteado: true,
+      plataformas: ['nes']
     };
 
     const result = await jogosController.create(body);
