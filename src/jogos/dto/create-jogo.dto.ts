@@ -12,7 +12,7 @@ export class CreateJogoDto {
     @ApiProperty()
     generos: string[];
     @ApiProperty()
-    capas: string[];
+    capa: string;
     @ApiProperty()
     foiSorteado: boolean;
 }

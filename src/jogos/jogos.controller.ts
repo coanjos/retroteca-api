@@ -1,8 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile, UploadedFiles, Res, BadRequestException } from '@nestjs/common';
 import { JogosService } from './jogos.service';
 import { CreateJogoDto } from './dto/create-jogo.dto';
 import { UpdateJogoDto } from './dto/update-jogo.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
+import { editFileName, imageFileFilter } from 'src/utils/file-uploading.utils';
+import { diskStorage } from 'multer';
 
 @ApiTags('jogos')
 @Controller('jogos')
@@ -12,6 +15,28 @@ export class JogosController {
   @Post()
   create(@Body() createJogoDto: CreateJogoDto) {
     return this.jogosService.create(createJogoDto);
+  }
+
+  @Post('capas')
+  @UseInterceptors(
+    FileInterceptor('capa', {
+      storage: diskStorage({
+        destination: './files',
+        filename: editFileName,
+      }),
+      fileFilter: imageFileFilter,
+    }),
+  )
+  async uploadCapa(@UploadedFile() capa) {
+    if (capa != null) {
+      const response = {
+        filename: capa.filename
+      }
+
+      return response
+    }
+    
+    throw new BadRequestException();
   }
 
   @Get()
@@ -32,5 +57,10 @@ export class JogosController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.jogosService.remove(id);
+  }
+
+  @Get('capas/:imgpath')
+  seeUploadedFile(@Param('imgpath') image, @Res() res) {
+    return res.sendFile(image, { root: './files' });
   }
 }

@@ -11,7 +11,7 @@ export class Jogo {
     this.descricao = jogo?.descricao;
     this.ano = jogo?.ano;
     this.autores = jogo?.autores;
-    this.capas = jogo?.capas;
+    this.capa = jogo?.capa;
     this.generos = jogo?.generos;
     this.foiSorteado = jogo?.foiSorteado;
   }
@@ -27,7 +27,7 @@ export class Jogo {
   @Prop()
   generos: string[];
   @Prop()
-  capas: string[];
+  capa: string;
   @Prop()
   foiSorteado: boolean;
 }
