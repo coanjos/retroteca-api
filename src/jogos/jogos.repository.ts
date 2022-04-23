@@ -21,7 +21,7 @@ export class JogosRepository {
         return jogos;
     }
 
-    async findOne(id: string) {
+    async findOne(id: string) : Promise<Jogo> {
         const jogo = await this.jogoModel.findOne({ _id: id });
 
         if (!jogo) {
@@ -32,22 +32,10 @@ export class JogosRepository {
     }
 
     async patch(id: string, updateJogoDto: UpdateJogoDto) {
-        const jogoExiste = await this.jogoModel.findOne({ _id: id });
-
-        if (!jogoExiste) {
-            throw new NotFoundException('Não encontrado');
-        }
-
         return await this.jogoModel.findOneAndUpdate({ _id: id }, updateJogoDto);
     }
 
     async delete(id: string) {
-        const jogoExiste = await this.jogoModel.findOne({ _id: id });
-
-        if(!jogoExiste) {
-            throw new NotFoundException('Não encontrado');
-        }
-
         return await this.jogoModel.deleteOne({ _id: id })
     }
 }
