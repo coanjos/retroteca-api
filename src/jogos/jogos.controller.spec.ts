@@ -17,7 +17,7 @@ const newJogoDocument = new Jogo(
     ano: 1985,
     autores: ['Shigeru Miyamoto'],
     generos: ['Plataforma'],
-    capas: ['ABC'],
+    capa: 'ABC',
     descricao: 'Mario goes puin',
     foiSorteado: true
   });
@@ -37,12 +37,13 @@ describe('JogosController', () => {
           findOne: jest.fn().mockResolvedValue(jogoDocumentList[0]),
           update: jest.fn().mockResolvedValue(jogoDocumentList[0]),
           remove: jest.fn().mockResolvedValue(jogoDocumentList[0])
-        }
+        }        
       }],
     }).compile();
 
     jogosController = module.get<JogosController>(JogosController);
     jogosService = module.get<JogosService>(JogosService);
+    
   });
 
   it('controller e service devem estar definidas', () => {
@@ -69,7 +70,7 @@ describe('JogosController', () => {
       ano: 1985,
       autores: ['Shigeru Miyamoto'],
       generos: ['Plataforma'],
-      capas: ['ABC'],
+      capa: 'ABC',
       descricao: 'Mario goes puin',
       foiSorteado: true,
       plataformas: ['nes']
@@ -100,7 +101,7 @@ describe('JogosController', () => {
       ano: 1985,
       autores: ['Shigeru Miyamoto'],
       generos: ['Plataforma'],
-      capas: ['ABC'],
+      capa: 'ABC',
       descricao: 'Mario goes puin',
       foiSorteado: true
     }

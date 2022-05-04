@@ -5,6 +5,7 @@ import { UpdateJogoDto } from './dto/update-jogo.dto';
 import { JogosRepository } from './jogos.repository';
 import { JogosService } from './jogos.service';
 import { Jogo } from './schemas/jogo.schema';
+import { writeFile } from 'fs';
 
 const jogoDocumentList: Jogo[] = [
   new Jogo({ titulo: 'a' }),
@@ -18,7 +19,7 @@ const newJogoDocument = new Jogo(
     ano: 1985,
     autores: ['Shigeru Miyamoto'],
     generos: ['Plataforma'],
-    capas: ['ABC'],
+    capa: 'ABC.jpg',
     descricao: 'Mario goes puin',
     foiSorteado: true,
     plataformas: ['nes']
@@ -37,7 +38,7 @@ describe('JogosService', () => {
           findAll: jest.fn().mockResolvedValue(jogoDocumentList),
           findOne: jest.fn().mockResolvedValue(jogoDocumentList[0]),
           patch: jest.fn().mockResolvedValue(jogoDocumentList[0]),
-          delete: jest.fn().mockResolvedValue(jogoDocumentList[0])
+          delete: jest.fn().mockResolvedValue(newJogoDocument)
         }
       }],
     }).compile();
@@ -78,7 +79,7 @@ describe('JogosService', () => {
       ano: 1985,
       autores: ['Shigeru Miyamoto'],
       generos: ['Plataforma'],
-      capas: ['ABC'],
+      capa: 'ABC',
       descricao: 'Mario goes puin',
       foiSorteado: true,
       plataformas: ['nes']
@@ -99,7 +100,6 @@ describe('JogosService', () => {
       ano: 1985,
       autores: ['Shigeru Miyamoto'],
       generos: ['Plataforma'],
-      capas: ['ABC'],
       descricao: 'Mario goes puin',
       foiSorteado: true
     }
@@ -114,9 +114,13 @@ describe('JogosService', () => {
   it('deve remover um jogo', async () => {
     const id = '1'
 
+    await writeFile('./files/ABC.jpg', 'ui', () => 'ui papai');
+
+    jest.spyOn(jogosRepository, 'findOne').mockResolvedValueOnce(newJogoDocument);
+
     const result = await jogosService.remove(id);
 
-    expect(result).toEqual(jogoDocumentList[0]);
+    expect(result).toEqual(newJogoDocument);
     expect(jogosRepository.delete).toHaveBeenCalledTimes(1);
     expect(jogosRepository.delete).toHaveBeenCalledWith(id);
   });

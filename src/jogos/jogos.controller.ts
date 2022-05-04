@@ -1,10 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile, Res, Req, BadRequestException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete,
+   UseInterceptors, UploadedFile, Res, BadRequestException } from '@nestjs/common';
 import { JogosService } from './jogos.service';
 import { CreateJogoDto } from './dto/create-jogo.dto';
 import { UpdateJogoDto } from './dto/update-jogo.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { editFileName, imageFileFilter } from 'src/utils/file-uploading.utils';
+import { editFileName, imageFileFilter } from '../utils/file-uploading.utils';
 import { diskStorage } from 'multer';
 
 @ApiTags('jogos')
