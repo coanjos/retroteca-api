@@ -18,7 +18,7 @@ const newJogoDocument = new Jogo(
     ano: 1985,
     autores: ['Shigeru Miyamoto'],
     generos: ['Plataforma'],
-    capas: ['ABC'],
+    capa: 'ABC',
     descricao: 'Mario goes puin',
     foiSorteado: true
 });
@@ -34,7 +34,7 @@ class JogoModel {
 
 describe('JogosService', () => {
   let jogosRepository: JogosRepository;
-  let mockJogoModel: JogoModel
+  let mockJogoModel: JogoModel;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -75,7 +75,7 @@ describe('JogosService', () => {
       ano: 1985,
       autores: ['Shigeru Miyamoto'],
       generos: ['Plataforma'],
-      capas: ['ABC'],
+      capa: 'ABC',
       descricao: 'Mario goes puin',
       foiSorteado: true,
       plataformas: ['nes']
@@ -95,7 +95,7 @@ describe('JogosService', () => {
       ano: 1985,
       autores: ['Shigeru Miyamoto'],
       generos: ['Plataforma'],
-      capas: ['ABC'],
+      capa: 'ABC',
       descricao: 'Mario goes puin',
       foiSorteado: true,
       plataformas: ['nes']
@@ -122,19 +122,4 @@ describe('JogosService', () => {
     await expect(jogosRepository.findOne('1'))
       .rejects.toThrowError(NotFoundException);
   });
-
-  it('deve retornar nulo quando atualizar por id e lançar exceção', async () => {
-    jest.spyOn(JogoModel, 'findOne').mockResolvedValue(null);
-
-    await expect(jogosRepository.patch('1', { titulo: 'yoga fire' }))
-      .rejects.toThrowError(NotFoundException);
-  });
-
-  it('deve retornar nulo quando atualizar por id e lançar exceção', async () => {
-    jest.spyOn(JogoModel, 'findOne').mockResolvedValue(null);
-
-    await expect(jogosRepository.delete('1'))
-      .rejects.toThrowError(NotFoundException);
-  });
-
 });
