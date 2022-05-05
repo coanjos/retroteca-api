@@ -4,6 +4,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JogosModule } from './jogos/jogos.module';
 import { SorteioModule } from './sorteio/sorteio.module';
 import { MulterModule } from '@nestjs/platform-express';
+import { UsuariosModule } from './usuarios/usuarios.module';
 
 const configService = new ConfigService();
 
@@ -17,7 +18,8 @@ const configService = new ConfigService();
     }),
     MongooseModule.forRoot(configService.get('DB_CONNECTION_STRING')),
     JogosModule,
-    SorteioModule
+    SorteioModule,
+    UsuariosModule
   ],
   controllers: [],
   providers: []
