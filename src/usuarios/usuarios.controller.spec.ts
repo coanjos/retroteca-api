@@ -30,7 +30,8 @@ describe('UsuariosController', () => {
           create: jest.fn().mockResolvedValueOnce(newUsuarioDocument),
           findAll: jest.fn().mockResolvedValueOnce(usuarioDocumentList),
           findOne: jest.fn().mockResolvedValueOnce(newUsuarioDocument),
-          update: jest.fn().mockResolvedValueOnce(newUsuarioDocument)
+          update: jest.fn().mockResolvedValueOnce(newUsuarioDocument),
+          remove: jest.fn().mockResolvedValueOnce(newUsuarioDocument)
         }
       }],
     }).compile();
@@ -114,5 +115,24 @@ describe('UsuariosController', () => {
     const result = await usuariosController.update(id, body);
 
     expect(usuariosService.update).rejects.toThrowError();
+  });
+
+  it('Deve deletar um usuário', async () => {
+    const id = 'abcdefghij';
+
+    const result = await usuariosController.remove(id);
+
+    expect(result).toMatchObject(newUsuarioDocument);
+    expect(usuariosService.remove).toBeCalledWith(id);
+  });
+
+  it('Deve lançar uma exceção ao deletar usuário não existente', async () => {
+    const id = 'idInvalido';
+
+    jest.spyOn(usuariosService, 'remove').mockRejectedValueOnce(new NotFoundException());
+
+    const result = await usuariosController.remove(id);
+
+    expect(usuariosService.remove).rejects.toThrowError();
   });
 });

@@ -36,6 +36,10 @@ export class UsuariosService {
   }
 
   async remove(id: string) {
-    return await this.usuariosRepository.delete(id);
+    try {      
+      return await this.usuariosRepository.delete(id);
+    } catch (error) {
+      throw new NotFoundException('Usuário não encontrado!')
+    }
   }
 }
