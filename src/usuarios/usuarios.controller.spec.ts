@@ -1,3 +1,4 @@
+import { NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { Usuario } from './schemas/usuario.schema';
@@ -10,6 +11,11 @@ const newUsuarioDocument = new Usuario({
   senha: 'quixeramobim'
 });
 
+const usuarioDocumentList: Usuario[] = [
+  newUsuarioDocument,
+  newUsuarioDocument
+]
+
 describe('UsuariosController', () => {
   let usuariosController: UsuariosController;
   let usuariosService: UsuariosService;  
@@ -20,7 +26,9 @@ describe('UsuariosController', () => {
       providers: [{
         provide: UsuariosService,
         useValue: {
-          create: jest.fn().mockResolvedValueOnce(newUsuarioDocument)          
+          create: jest.fn().mockResolvedValueOnce(newUsuarioDocument),
+          findAll: jest.fn().mockResolvedValueOnce(usuarioDocumentList),
+          findOne: jest.fn().mockResolvedValueOnce(newUsuarioDocument)
         }
       }],
     }).compile();
@@ -48,7 +56,31 @@ describe('UsuariosController', () => {
     // assert
     expect(result).toMatchObject(body);
     expect(usuariosService.create).toHaveBeenCalledWith(body);    
-  })
+  });
 
+  it('Deve trazer uma lista de usuários', async () => {
+    const result = await usuariosController.findAll();
+
+    expect(result).toBe(usuarioDocumentList);
+  });
+
+  it('Deve trazer um usuário por id', async () => {
+    const id = 'abcdefghij';
+
+    const result = await usuariosController.findOne(id);
+
+    expect(result).toMatchObject(newUsuarioDocument);
+    expect(usuariosService.findOne).toBeCalledWith(id);
+  });
+
+  it('Deve lançar uma exceção ao procurar usuário não existente', async () => {
+    const id = 'idInvalido';
+
+    jest.spyOn(usuariosService, 'findOne').mockRejectedValueOnce(new NotFoundException());
+
+    const result = await usuariosController.findOne(id);
+
+    expect(usuariosService.findOne).rejects.toThrowError();
+  });
 
 });
