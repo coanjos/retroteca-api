@@ -28,7 +28,11 @@ export class UsuariosService {
   }
 
   async update(id: string, updateUsuarioDto: UpdateUsuarioDto) {
-    return await this.usuariosRepository.patch(id, updateUsuarioDto);
+    try {      
+      return await this.usuariosRepository.patch(id, updateUsuarioDto);
+    } catch (error) {
+      throw new NotFoundException('Usuário não encontrado!')
+    }
   }
 
   async remove(id: string) {
