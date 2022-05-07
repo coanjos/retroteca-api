@@ -1,26 +1,29 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
+import { UsuariosRepository } from './usuarios.repository';
 
 @Injectable()
 export class UsuariosService {
-  create(createUsuarioDto: CreateUsuarioDto) {
-    return 'ui papai';
+  constructor(private usuariosRepository: UsuariosRepository) {}
+
+  async create(createUsuarioDto: CreateUsuarioDto) {
+    return await this.usuariosRepository.create(createUsuarioDto)
   }
 
-  findAll() {
-    return `This action returns all usuarios`;
+  async findAll() {
+    return await this.usuariosRepository.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} usuario`;
+  async findOne(id: string) {
+    return await this.usuariosRepository.findOne(id);
   }
 
-  update(id: number, updateUsuarioDto: UpdateUsuarioDto) {
-    return `This action updates a #${id} usuario`;
+  async update(id: string, updateUsuarioDto: UpdateUsuarioDto) {
+    return await this.usuariosRepository.patch(id, updateUsuarioDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} usuario`;
+  async remove(id: string) {
+    return await this.usuariosRepository.delete(id);
   }
 }

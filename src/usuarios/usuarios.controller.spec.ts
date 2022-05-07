@@ -1,7 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
+import { Usuario } from './schemas/usuario.schema';
 import { UsuariosController } from './usuarios.controller';
 import { UsuariosService } from './usuarios.service';
+
+const newUsuarioDocument = new Usuario({
+  nome: 'adm',
+  email: 'email@teste.com',
+  senha: 'quixeramobim'
+});
 
 describe('UsuariosController', () => {
   let usuariosController: UsuariosController;
@@ -13,7 +20,7 @@ describe('UsuariosController', () => {
       providers: [{
         provide: UsuariosService,
         useValue: {
-          create: jest.fn().mockReturnValue('ui papai')
+          create: jest.fn().mockResolvedValueOnce(newUsuarioDocument)          
         }
       }],
     }).compile();
@@ -27,16 +34,19 @@ describe('UsuariosController', () => {
     expect(usuariosService).toBeDefined();
   });
 
-  it('Deve criar um jogo', () => {
+  it('Deve criar um jogo', async () => {
     // arrange
-    const body: CreateUsuarioDto = {};
+    const body: CreateUsuarioDto = { 
+      nome: 'adm',
+      email: 'email@teste.com',
+      senha: 'quixeramobim'
+    };
 
     // act
-    const result = usuariosController.create(body);
+    const result = await usuariosController.create(body);
 
     // assert
-    expect(result).toEqual('ui papai');
-    expect(usuariosService.create).toHaveBeenCalledTimes(1);
+    expect(result).toMatchObject(body);
     expect(usuariosService.create).toHaveBeenCalledWith(body);    
   })
 
