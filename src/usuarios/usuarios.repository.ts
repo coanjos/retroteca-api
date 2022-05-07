@@ -24,10 +24,6 @@ export class UsuariosRepository {
     async findOne(id: string) : Promise<Usuario> {
         const usuario = await this.usuarioModel.findOne({ _id: id });
 
-        if (!usuario) {
-            throw new NotFoundException('Não encontrado.');
-        }
-
         return usuario;
     }
 
