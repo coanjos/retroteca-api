@@ -1,6 +1,7 @@
 import { NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
+import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 import { Usuario } from './schemas/usuario.schema';
 import { UsuariosController } from './usuarios.controller';
 import { UsuariosService } from './usuarios.service';
@@ -28,7 +29,8 @@ describe('UsuariosController', () => {
         useValue: {
           create: jest.fn().mockResolvedValueOnce(newUsuarioDocument),
           findAll: jest.fn().mockResolvedValueOnce(usuarioDocumentList),
-          findOne: jest.fn().mockResolvedValueOnce(newUsuarioDocument)
+          findOne: jest.fn().mockResolvedValueOnce(newUsuarioDocument),
+          update: jest.fn().mockResolvedValueOnce(newUsuarioDocument)
         }
       }],
     }).compile();
@@ -83,4 +85,34 @@ describe('UsuariosController', () => {
     expect(usuariosService.findOne).rejects.toThrowError();
   });
 
+  it('Deve atualizar um usuário', async () => {
+    const id = 'abcdefghij';
+
+    const body: UpdateUsuarioDto = { 
+      nome: 'adm',
+      email: 'email@teste.com',
+      senha: 'quixeramobim'
+    };
+
+    const result = await usuariosController.update(id, body);
+
+    expect(result).toMatchObject(newUsuarioDocument);
+    expect(usuariosService.update).toBeCalledWith(id, body);
+  });
+
+  it('Deve lançar uma exceção ao atualizar usuário não existente', async () => {
+    const id = 'idInvalido';
+
+    const body: UpdateUsuarioDto = { 
+      nome: 'adm',
+      email: 'email@teste.com',
+      senha: 'quixeramobim'
+    };
+
+    jest.spyOn(usuariosService, 'update').mockRejectedValueOnce(new NotFoundException());
+
+    const result = await usuariosController.update(id, body);
+
+    expect(usuariosService.update).rejects.toThrowError();
+  });
 });
