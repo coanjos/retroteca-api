@@ -7,7 +7,7 @@ export type JogoDocument = Jogo & Document;
 export class Jogo {
 
   constructor(jogo?: Partial<JogoDocument>) {
-    this.titulo = jogo?._id;
+    this.titulo = jogo?.titulo;
     this.descricao = jogo?.descricao;
     this.ano = jogo?.ano;
     this.autores = jogo?.autores;
