@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { ComentariosService } from './comentarios.service';
 import { CreateComentarioDto } from './dto/create-comentario.dto';
@@ -20,11 +20,11 @@ export class ComentariosController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return await this.comentariosService.findOne(+id);
+    return await this.comentariosService.findOne(id);
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    return await this.comentariosService.remove(+id);
+    return await this.comentariosService.remove(id);
   }
 }
