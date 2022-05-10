@@ -5,6 +5,7 @@ import { JogosModule } from './jogos/jogos.module';
 import { SorteioModule } from './sorteio/sorteio.module';
 import { MulterModule } from '@nestjs/platform-express';
 import { UsuariosModule } from './usuarios/usuarios.module';
+import { ComentariosModule } from './comentarios/comentarios.module';
 
 const configService = new ConfigService();
 
@@ -19,7 +20,8 @@ const configService = new ConfigService();
     MongooseModule.forRoot(configService.get('DB_CONNECTION_STRING')),
     JogosModule,
     SorteioModule,
-    UsuariosModule
+    UsuariosModule,
+    ComentariosModule
   ],
   controllers: [],
   providers: []
