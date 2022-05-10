@@ -11,14 +11,14 @@ export class ComentariosService {
   }
 
   async findAll() {
-    return `This action returns all comentarios`;
+    return await this.comentariosRepository.findAll();
   }
 
-  async findOne(id: number) {
-    return `This action returns a #${id} comentario`;
+  async findOne(id: string) {
+    return await this.comentariosRepository.findOne(id);
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     return `This action removes a #${id} comentario`;
   }
 }

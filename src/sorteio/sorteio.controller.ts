@@ -1,7 +1,5 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Param, Delete } from '@nestjs/common';
 import { SorteioService } from './sorteio.service';
-import { CreateSorteioDto } from './dto/create-sorteio.dto';
-import { UpdateSorteioDto } from './dto/update-sorteio.dto';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('sorteio')
