@@ -19,6 +19,6 @@ export class ComentariosService {
   }
 
   async remove(id: string) {
-    return `This action removes a #${id} comentario`;
+    return await this.comentariosRepository.delete(id);
   }
 }
