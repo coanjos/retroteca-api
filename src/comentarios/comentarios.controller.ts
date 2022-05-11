@@ -18,6 +18,11 @@ export class ComentariosController {
     return await this.comentariosService.findAll();
   }
 
+  @Get('/jogo/:idJogo')
+  async findByJogo(@Param('idJogo') idJogo: string) {
+    return await this.comentariosService.findByJogo(idJogo);
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: string) {
     return await this.comentariosService.findOne(id);

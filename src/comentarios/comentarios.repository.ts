@@ -20,6 +20,12 @@ export class ComentariosRepository {
         return comentarios;
     }
 
+    async findByJogo(idJogo: string): Promise<Comentario[]> {
+        const comentarios = await this.comentarioModel.find();
+
+        return comentarios;
+    }
+
     async findOne(id: string) : Promise<Comentario> {
         const comentario = await this.comentarioModel.findOne({ _id: id });
 

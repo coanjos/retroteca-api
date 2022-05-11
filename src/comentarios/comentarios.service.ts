@@ -14,6 +14,14 @@ export class ComentariosService {
     return await this.comentariosRepository.findAll();
   }
 
+  async findByJogo(idJogo: string) {
+    const comentarios = await this.comentariosRepository.findByJogo(idJogo);
+
+    const comentariosDoJogo = comentarios.filter(c => c.jogo === idJogo);
+
+    return comentariosDoJogo;
+  }
+
   async findOne(id: string) {
     return await this.comentariosRepository.findOne(id);
   }
