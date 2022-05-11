@@ -19,8 +19,6 @@ export class ComentariosService {
 
     const comentariosDoJogo = comentarios.filter(c => c.jogo === idJogo);
 
-    console.log(comentarios);
-
     return comentariosDoJogo;
   }
 
