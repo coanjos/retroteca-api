@@ -21,6 +21,12 @@ export class UsuariosRepository {
         return usuarios;
     }
 
+    async findByEmail(email: string): Promise<Usuario> {
+        const usuario = await this.usuarioModel.findOne({ email });
+
+        return usuario;
+    }
+
     async findOne(id: string) : Promise<Usuario> {
         const usuario = await this.usuarioModel.findOne({ _id: id });
 

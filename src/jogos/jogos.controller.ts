@@ -7,6 +7,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { editFileName, imageFileFilter } from '../utils/file-uploading.utils';
 import { diskStorage } from 'multer';
+import { JogoDocument } from './schemas/jogo.schema';
 
 @ApiTags('jogos')
 @Controller('jogos')
@@ -14,7 +15,7 @@ export class JogosController {
   constructor(private readonly jogosService: JogosService) {}
 
   @Post()
-  create(@Body() createJogoDto: CreateJogoDto) {
+  create(@Body() createJogoDto: CreateJogoDto) : Promise<JogoDocument> {
     return this.jogosService.create(createJogoDto);
   }
 
