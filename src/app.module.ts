@@ -6,6 +6,7 @@ import { SorteioModule } from './sorteio/sorteio.module';
 import { MulterModule } from '@nestjs/platform-express';
 import { UsuariosModule } from './usuarios/usuarios.module';
 import { ComentariosModule } from './comentarios/comentarios.module';
+import { AuthModule } from './auth/auth.module';
 
 const configService = new ConfigService();
 
@@ -21,7 +22,8 @@ const configService = new ConfigService();
     JogosModule,
     SorteioModule,
     UsuariosModule,
-    ComentariosModule
+    ComentariosModule,
+    AuthModule
   ],
   controllers: [],
   providers: []
